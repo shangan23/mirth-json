@@ -1,0 +1,5 @@
+{
+	"$.category": "$.Data[0].Data[?(@.FieldId=='2201')].Value",
+	"$.note[0].text":"$.Data[0].Data[?(@.FieldId=='2202')].Value",
+	"$.verificationStatus.coding[0].code":"$.Data[0].Data[?(@.FieldId=='2209')].Value"
+}
