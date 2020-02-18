@@ -1,0 +1,53 @@
+{
+  "Result": {
+    "Code": 0,
+    "Message": "SUCCESS",
+    "VerificationErrorMsgs": null
+  },
+  "Data": [
+    {
+      "ViewName": "getPatientDemographicsInfo",
+      "Action": "Save",
+      "Status": "",
+      "PatientId": "200000",
+      "System": "Cerner",
+      "AccessToken": "",
+      "Id": 30894,
+      "Data": [
+        {
+          "FieldId": 2207,
+          "Value": "190751001"
+        },
+        {
+          "FieldId": 2208,
+          "Value": "Inactive"
+        },
+        {
+          "FieldId": 2209,
+          "Value": "Entered-in-error"
+        },
+        {
+          "FieldId": 2202,
+          "Value": "Test notes"
+        },
+        {
+          "FieldId": 2201,
+          "Value": "Environment"
+        },
+        {
+          "FieldId": 2203,
+          "Value": "MO"
+        },
+        {
+          "FieldId": 2204,
+          "Value": "Low"
+        },
+        {
+          "FieldId": 2206,
+          "Value": "773001"
+        }
+      ],
+      "DataUpdated": []
+    }
+  ]
+}
