@@ -34,10 +34,10 @@ public class App {
 		Iterator iterator = set.iterator();
 		while (iterator.hasNext()) {
 			Map.Entry me = (Map.Entry) iterator.next();
-			fhir = setJson(fhir,customJson,fhirJson,me.getKey().toString(),me.getValue().toString());
+			fhir = setJson(fhir, customJson, fhirJson, me.getKey().toString(), me.getValue().toString());
 		}
-		
-		//Object resultJson = JsonPath.
+
+		// Object resultJson = JsonPath.
 		System.out.println(fhir.jsonString());
 
 		// mapJson.keySet().forEach(key -> System.out.println(key));
@@ -45,20 +45,23 @@ public class App {
 
 		// typeOf(JsonPath.read(customJson,
 		// "$.Data[0].Data[?(@.FieldId=='2202')].Value").getClass().getSimpleName());
-		/*fhir = fhir.set("$.category", JsonPath.read(customJson, "$.Data[0].Data[?(@.FieldId=='2201')].Value"));
-		if (JsonPath.read(fhirJson, "$.note[0].text") instanceof String) {
-			fhir = fhir.set("$.note[0].text",
-					convertToString(JsonPath.read(customJson, "$.Data[0].Data[?(@.FieldId=='2202')].Value")));
-		}
-		System.out.println(fhir.jsonString());*/
+		/*
+		 * fhir = fhir.set("$.category", JsonPath.read(customJson,
+		 * "$.Data[0].Data[?(@.FieldId=='2201')].Value")); if (JsonPath.read(fhirJson,
+		 * "$.note[0].text") instanceof String) { fhir = fhir.set("$.note[0].text",
+		 * convertToString(JsonPath.read(customJson,
+		 * "$.Data[0].Data[?(@.FieldId=='2202')].Value"))); }
+		 * System.out.println(fhir.jsonString());
+		 */
 	}
-	
-	public static DocumentContext setJson(DocumentContext fhir, Object customJson, Object fhirJson, String key, String val) {
-		System.out.println("Instance Type >> "+JsonPath.read(fhirJson, key).getClass().getSimpleName());
-		if (JsonPath.read(fhirJson, key) instanceof String) {
-			fhir = fhir.set(key,
-					convertToString(JsonPath.read(customJson, val)));
-		}else {
+
+	public static DocumentContext setJson(DocumentContext fhir, Object customJson, Object fhirJson, String key,
+			String val) {
+		switch (typeOf(JsonPath.read(fhirJson, key))) {
+		case "String":
+			fhir = fhir.set(key, convertToString(JsonPath.read(customJson, val)));
+			break;
+		default:
 			fhir = fhir.set(key, JsonPath.read(customJson, val));
 		}
 		return fhir;
@@ -89,7 +92,7 @@ public class App {
 	}
 
 	public static <T> String typeOf(T o) {
-		System.out.println(o.getClass().getSimpleName());
+		System.out.println("Instance Type >> " + o.getClass().getSimpleName());
 		return o.getClass().getSimpleName();
 	}
 }
