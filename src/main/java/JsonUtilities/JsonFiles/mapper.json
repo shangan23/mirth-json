@@ -1,5 +1,20 @@
 {
-	"$.category": "$.Data[0].Data[?(@.FieldId=='2201')].Value",
-	"$.note[0].text":"$.Data[0].Data[?(@.FieldId=='2202')].Value",
-	"$.verificationStatus.coding[0].code":"$.Data[0].Data[?(@.FieldId=='2209')].Value"
+	"write": {
+		"$.category": "$.Data[0].Data[?(@.FieldId=='2201')].Value",
+		"$.note[0].text": "$.Data[0].Data[?(@.FieldId=='2202')].Value",
+		"$.verificationStatus.coding[0].code": "$.Data[0].Data[?(@.FieldId=='2209')].Value"
+	},
+	"list": {
+		"length": {
+			"$.total": "$.[0].Data.length()"
+		},
+		"mapperObj": {
+			"$.entry[*].resource": "$.[0].Data[*].InterfaceData"
+		},
+		"fieldsList": [
+			{"str(FieldId)":"str(2201)","str(Value)":"$.entry[*].resource.category"},
+			{"str(FieldId)":"str(2202)","str(Value)":"$.entry[*].resource.note[0].text"},
+			{"str(FieldId)":"str(2209)","str(Value)":"$.entry[*].resource.verificationStatus.coding[0].code"}
+		]
+	}
 }

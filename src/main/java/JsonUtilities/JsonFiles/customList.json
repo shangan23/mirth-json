@@ -1,0 +1,41 @@
+[
+  {
+    "ViewName": "getPatientProblems",
+    "Action": "Save",
+    "SystemName": "Vista",
+    "PatientId": "200000",
+    "CreatedForUsers": [
+      "11388-30939-24"
+    ],
+    "Data": [
+      {
+        "InterfaceData": [
+          {
+            "FieldId": "2254",
+            "Value": ""
+          },
+          {
+            "FieldId": "2251",
+            "Value": ""
+          },
+          {
+            "FieldId": "2252",
+            "Value": ""
+          },
+          {
+            "FieldId": "2256",
+            "Value": ""
+          },
+          {
+            "FieldId": "2253",
+            "Value": ""
+          },
+          {
+            "FieldId": "2255",
+            "Value": ""
+          }
+        ]
+      }
+    ]
+  }
+]
