@@ -21,7 +21,7 @@ public class App {
 	public static void main(String[] args) {
 		try {
 			BuildCustomList();
-			CreateFhir();
+			//CreateFhir();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,7 +35,7 @@ public class App {
 				sampleCustom = null, totalFhir = null, totalCustom = null, mapperFhir = null, mapperCustom = null;
 		Object customJson = null, fhirJson = null, mapJson = null;
 
-		basePath = "/home/shankarganesh.j/mirth/mirth-fhir-utility/src/main/java/JsonUtilities/JsonFiles/";
+		basePath = "src/main/java/JsonUtilities/JsonFiles/";
 
 		customReader = readFile(basePath + "customList.json");
 		fhirReader = readFile(basePath + "fhirR4List.json");
@@ -75,20 +75,20 @@ public class App {
 		ReadContext rCtx = JsonPath.parse(sampleJson);
 		Object sampleObject = rCtx.json();
 		JSONArray ja = new JSONArray();
+		DocumentContext newCstm = JsonPath.parse(sampleObject);
 		Integer totalFhirCount = JsonPath.parse(fhirJson).read(totalFhir);
 		for (Integer f = 0; f < totalFhirCount; f++) {
 			LinkedHashMap<String, String> mapFields = JsonPath.parse(mapJson).read("$.list.fieldsList");
 			Set mapFieldSet = mapFields.entrySet();
 			Iterator mapFieldIterate = mapFieldSet.iterator();
-			DocumentContext newCstm = JsonPath.parse(sampleObject);
+			
 			while (mapFieldIterate.hasNext()) {
 				Map.Entry mapField = (Map.Entry) mapFieldIterate.next();
 				newCstm = setJson(newCstm, fhirJson, JsonPath.parse(sampleJson).json(), mapField.getKey().toString(),
 						(mapField.getValue()).toString().replace("*", f.toString()));
 			}
 			
-			String data = JsonPath.parse(newCstm.json()).jsonString();
-			ReadContext dataCtx = JsonPath.parse(data);
+			ReadContext dataCtx = JsonPath.parse(newCstm.jsonString());
 			JsonPath.parse(customJson).add(mapperCustom,dataCtx.json());
 		}
 		JsonPath.parse(customJson).delete(sampleCustom);
@@ -98,7 +98,7 @@ public class App {
 	@SuppressWarnings("rawtypes")
 	public static void CreateFhir() throws FileNotFoundException {
 
-		String basePath = "/home/shankarganesh.j/mirth/mirth-fhir-utility/src/main/java/JsonUtilities/JsonFiles/";
+		String basePath = "src/main/java/JsonUtilities/JsonFiles/";;
 
 		String customReader = readFile(basePath + "custom.json");
 		String fhirReader = readFile(basePath + "fhirR4.json");
