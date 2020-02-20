@@ -2,7 +2,9 @@
 	"write": {
 		"$.category": "$.Data[0].Data[?(@.FieldId=='2201')].Value",
 		"$.note[0].text": "$.Data[0].Data[?(@.FieldId=='2202')].Value",
-		"$.verificationStatus.coding[0].code": "$.Data[0].Data[?(@.FieldId=='2209')].Value"
+		"$.verificationStatus.coding[0].code": "$.Data[0].Data[?(@.FieldId=='2209')].Value",
+		"$.clinicalStatus.coding[0].code": "$.Data[0].Data[?(@.FieldId=='2208')].Value",
+		"$.code.coding[0].code": "$.Data[0].Data[?(@.FieldId=='2207')].Value"
 	},
 	"list": {
 		"length": {
@@ -17,7 +19,9 @@
 		"fieldObj": {
 			"$.InterfaceData[?(@.FieldId=='2201')].Value": "$.entry[*].resource.category",
 			"$.InterfaceData[?(@.FieldId=='2202')].Value": "$.entry[*].resource.note[0].text",
-			"$.InterfaceData[?(@.FieldId=='2209')].Value": "$.entry[*].resource.verificationStatus.coding[0].code"
+			"$.InterfaceData[?(@.FieldId=='2209')].Value": "$.entry[*].resource.verificationStatus.coding[0].code",
+			"$.InterfaceData[?(@.FieldId=='2208')].Value": "$.entry[*].resource.clinicalStatus.coding[0].code",
+			"$.InterfaceData[?(@.FieldId=='2207')].Value": "$.entry[*].resource.code.coding[0].code"
 		}
 	}
 }

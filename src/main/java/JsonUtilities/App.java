@@ -162,7 +162,7 @@ public class App {
 	}
 
 	public static <T> String typeOf(T o) {
-		System.out.println("Instance Type >> " + o.getClass().getSimpleName());
+		//System.out.println("Instance Type >> " + o.getClass().getSimpleName());
 		return o.getClass().getSimpleName();
 	}
 }
