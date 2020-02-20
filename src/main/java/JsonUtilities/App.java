@@ -58,7 +58,7 @@ public class App {
 				totalFhir = cleanString(listTotal.keySet().toString(), 1);
 				totalCustom = cleanString(listTotal.values().toString(), 1);
 				break;
-			case "mapperObj":
+			case "iterateObj":
 				LinkedHashMap<String, String> listMapper = (LinkedHashMap<String, String>) list.getValue();
 				mapperFhir = cleanString(listMapper.keySet().toString(), 1);
 				mapperCustom = cleanString(listMapper.values().toString(), 1);
@@ -78,7 +78,7 @@ public class App {
 		DocumentContext newCstm = JsonPath.parse(sampleObject);
 		Integer totalFhirCount = JsonPath.parse(fhirJson).read(totalFhir);
 		for (Integer f = 0; f < totalFhirCount; f++) {
-			LinkedHashMap<String, String> mapFields = JsonPath.parse(mapJson).read("$.list.fieldsList");
+			LinkedHashMap<String, String> mapFields = JsonPath.parse(mapJson).read("$.list.fieldObj");
 			Set mapFieldSet = mapFields.entrySet();
 			Iterator mapFieldIterate = mapFieldSet.iterator();
 			
@@ -121,12 +121,16 @@ public class App {
 	}
 
 	public static DocumentContext setJson(DocumentContext ctx, Object src, Object dest, String key, String val) {
-		switch (typeOf(JsonPath.read(dest, key))) {
-		case "String":
-			ctx = ctx.set(key, cleanString(JsonPath.read(src, val), 2));
-			break;
-		default:
-			ctx = ctx.set(key, JsonPath.read(src, val));
+		try {
+			switch (typeOf(JsonPath.read(dest, key))) {
+			case "String":
+				ctx = ctx.set(key, cleanString(JsonPath.read(src, val), 2));
+				break;
+			default:
+				ctx = ctx.set(key, JsonPath.read(src, val));
+			}
+		} catch (Exception e) {
+			ctx = ctx.set(key, "");
 		}
 		return ctx;
 	}

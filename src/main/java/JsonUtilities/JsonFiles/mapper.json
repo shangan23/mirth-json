@@ -8,14 +8,15 @@
 		"length": {
 			"$.total": "$.[0].Data.length()"
 		},
-		"mapperObj": {
+		"iterateObj": {
 			"$.entry[*].resource": "$.[0].Data"
 		},
 		"sampleObj": {
 			"$.entry[*].resource": "$.[0].Data[0]"
 		},
-		"fieldsList": {
+		"fieldObj": {
 			"$.InterfaceData[?(@.FieldId=='2201')].Value": "$.entry[*].resource.category",
+			"$.InterfaceData[?(@.FieldId=='2202')].Value": "$.entry[*].resource.note[0].text",
 			"$.InterfaceData[?(@.FieldId=='2209')].Value": "$.entry[*].resource.verificationStatus.coding[0].code"
 		}
 	}
