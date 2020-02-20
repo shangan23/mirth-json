@@ -17,8 +17,7 @@ public class GenerateCusomList extends Utility {
 	@SuppressWarnings({ "unused", "rawtypes", "unchecked" })
 	public void BuildCustomList() throws FileNotFoundException {
 
-		String basePath = null, customReader = null, fhirReader = null, mapReader = null, sampleFhir = null,
-				sampleCustom = null, totalFhir = null, totalCustom = null, mapperFhir = null, mapperCustom = null;
+		String basePath = null, customReader = null, fhirReader = null, mapReader = null, sampleCustom = null, totalFhir = null, mapperCustom = null;
 		Object customJson = null, fhirJson = null, mapJson = null;
 
 		basePath = "src/main/java/JsonUtilities/JsonFiles/";
@@ -30,11 +29,9 @@ public class GenerateCusomList extends Utility {
 		customJson = JsonPath.parse(customReader).json();
 		fhirJson = JsonPath.parse(fhirReader).json();
 		mapJson = JsonPath.parse(mapReader).json();
-		JSONArray feildList = null;
-
 		LinkedHashMap<String, String> mapObj = JsonPath.parse(mapJson).read("$.list");
-		Set listSet = mapObj.entrySet();
-		Iterator listIterate = listSet.iterator();
+		Set<?> listSet = mapObj.entrySet();
+		Iterator<?> listIterate = listSet.iterator();
 
 		while (listIterate.hasNext()) {
 			Map.Entry list = (Map.Entry) listIterate.next();
@@ -42,16 +39,13 @@ public class GenerateCusomList extends Utility {
 			case "length":
 				LinkedHashMap<String, String> listTotal = (LinkedHashMap<String, String>) list.getValue();
 				totalFhir = cleanString(listTotal.keySet().toString(), 1);
-				totalCustom = cleanString(listTotal.values().toString(), 1);
 				break;
 			case "iterateObj":
 				LinkedHashMap<String, String> listMapper = (LinkedHashMap<String, String>) list.getValue();
-				mapperFhir = cleanString(listMapper.keySet().toString(), 1);
 				mapperCustom = cleanString(listMapper.values().toString(), 1);
 				break;
 			case "sampleObj":
 				LinkedHashMap<String, String> listSample = (LinkedHashMap<String, String>) list.getValue();
-				sampleFhir = cleanString(listSample.keySet().toString(), 1);
 				sampleCustom = cleanString(listSample.values().toString(), 1);
 				break;
 			}
@@ -60,7 +54,6 @@ public class GenerateCusomList extends Utility {
 		String sampleJson = cleanString(JsonPath.parse(customJson).read(mapperCustom), 1);
 		ReadContext rCtx = JsonPath.parse(sampleJson);
 		Object sampleObject = rCtx.json();
-		JSONArray ja = new JSONArray();
 		DocumentContext newCstm = JsonPath.parse(sampleObject);
 		Integer totalFhirCount = JsonPath.parse(fhirJson).read(totalFhir);
 		for (Integer f = 0; f < totalFhirCount; f++) {
