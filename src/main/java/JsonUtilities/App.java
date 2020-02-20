@@ -7,10 +7,9 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-
+import com.jayway.jsonpath.ReadContext;
 import net.minidev.json.JSONArray;
 
 /**
@@ -22,6 +21,7 @@ public class App {
 	public static void main(String[] args) {
 		try {
 			BuildCustomList();
+			CreateFhir();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -31,7 +31,9 @@ public class App {
 	@SuppressWarnings({ "unused", "rawtypes", "unchecked" })
 	public static void BuildCustomList() throws FileNotFoundException {
 
-		String basePath = null, customReader = null, fhirReader = null, mapReader = null;
+		String basePath = null, customReader = null, fhirReader = null, mapReader = null, sampleFhir = null,
+				sampleCustom = null, totalFhir = null, totalCustom = null, mapperFhir = null, mapperCustom = null;
+		Object customJson = null, fhirJson = null, mapJson = null;
 
 		basePath = "/home/shankarganesh.j/mirth/mirth-fhir-utility/src/main/java/JsonUtilities/JsonFiles/";
 
@@ -39,45 +41,58 @@ public class App {
 		fhirReader = readFile(basePath + "fhirR4List.json");
 		mapReader = readFile(basePath + "mapper.json");
 
-		Object customJson = JsonPath.parse(customReader).json();
-		Object fhirJson = JsonPath.parse(fhirReader).json();
-		Object mapJson = JsonPath.parse(mapReader).json();
+		customJson = JsonPath.parse(customReader).json();
+		fhirJson = JsonPath.parse(fhirReader).json();
+		mapJson = JsonPath.parse(mapReader).json();
+		JSONArray feildList = null;
 
 		LinkedHashMap<String, String> mapObj = JsonPath.parse(mapJson).read("$.list");
 		Set listSet = mapObj.entrySet();
 		Iterator listIterate = listSet.iterator();
-		String totalFhir = null, totalCustom = null, mapperFhir = null, mapperCustom = null;
-		JSONArray feildList = null;
+
 		while (listIterate.hasNext()) {
 			Map.Entry list = (Map.Entry) listIterate.next();
 			switch (list.getKey().toString()) {
 			case "length":
 				LinkedHashMap<String, String> listTotal = (LinkedHashMap<String, String>) list.getValue();
-				totalFhir = convertToString(listTotal.keySet().toString(), 1);
-				totalCustom = convertToString(listTotal.values().toString(), 1);
+				totalFhir = cleanString(listTotal.keySet().toString(), 1);
+				totalCustom = cleanString(listTotal.values().toString(), 1);
 				break;
 			case "mapperObj":
 				LinkedHashMap<String, String> listMapper = (LinkedHashMap<String, String>) list.getValue();
-				mapperFhir = convertToString(listMapper.keySet().toString(), 1);
-				mapperCustom = convertToString(listMapper.values().toString(), 1);
+				mapperFhir = cleanString(listMapper.keySet().toString(), 1);
+				mapperCustom = cleanString(listMapper.values().toString(), 1);
 				break;
-			case "fieldsList":
-				feildList = (JSONArray) list.getValue();
+			case "sampleObj":
+				LinkedHashMap<String, String> listSample = (LinkedHashMap<String, String>) list.getValue();
+				sampleFhir = cleanString(listSample.keySet().toString(), 1);
+				sampleCustom = cleanString(listSample.values().toString(), 1);
 				break;
 			}
 		}
-		System.out.println(mapperCustom);
+		DocumentContext cstm = JsonPath.parse(customJson);
+		String sampleJson = cleanString(JsonPath.parse(customJson).read(mapperCustom), 1);
+		ReadContext rCtx = JsonPath.parse(sampleJson);
+		Object sampleObject = rCtx.json();
+		JSONArray ja = new JSONArray();
 		Integer totalFhirCount = JsonPath.parse(fhirJson).read(totalFhir);
 		for (Integer f = 0; f < totalFhirCount; f++) {
-			for (Integer i = 0; i < feildList.size(); i++) {
-				LinkedHashMap<Object, Object> fields = (LinkedHashMap<Object, Object>) feildList.get(i);
-				//System.out.println(fields.keySet());
-				//System.out.println(fields.values());
-				//System.out.println(fields.get("Value"));
-				//System.out.print(f);
-				//System.out.println("-" + i);
+			LinkedHashMap<String, String> mapFields = JsonPath.parse(mapJson).read("$.list.fieldsList");
+			Set mapFieldSet = mapFields.entrySet();
+			Iterator mapFieldIterate = mapFieldSet.iterator();
+			DocumentContext newCstm = JsonPath.parse(sampleObject);
+			while (mapFieldIterate.hasNext()) {
+				Map.Entry mapField = (Map.Entry) mapFieldIterate.next();
+				newCstm = setJson(newCstm, fhirJson, JsonPath.parse(sampleJson).json(), mapField.getKey().toString(),
+						(mapField.getValue()).toString().replace("*", f.toString()));
 			}
+			
+			String data = JsonPath.parse(newCstm.json()).jsonString();
+			ReadContext dataCtx = JsonPath.parse(data);
+			JsonPath.parse(customJson).add(mapperCustom,dataCtx.json());
 		}
+		JsonPath.parse(customJson).delete(sampleCustom);
+		System.out.println(customJson);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -105,16 +120,15 @@ public class App {
 		System.out.println(fhir.jsonString());
 	}
 
-	public static DocumentContext setJson(DocumentContext fhir, Object customJson, Object fhirJson, String key,
-			String val) {
-		switch (typeOf(JsonPath.read(fhirJson, key))) {
+	public static DocumentContext setJson(DocumentContext ctx, Object src, Object dest, String key, String val) {
+		switch (typeOf(JsonPath.read(dest, key))) {
 		case "String":
-			fhir = fhir.set(key, convertToString(JsonPath.read(customJson, val), 2));
+			ctx = ctx.set(key, cleanString(JsonPath.read(src, val), 2));
 			break;
 		default:
-			fhir = fhir.set(key, JsonPath.read(customJson, val));
+			ctx = ctx.set(key, JsonPath.read(src, val));
 		}
-		return fhir;
+		return ctx;
 	}
 
 	public static String readFile(String filename) {
@@ -134,7 +148,7 @@ public class App {
 		return result;
 	}
 
-	private static String convertToString(Object object, Integer level) {
+	private static String cleanString(Object object, Integer level) {
 		String t = object.toString();
 		Integer i;
 		for (i = 1; i <= level; i++) {

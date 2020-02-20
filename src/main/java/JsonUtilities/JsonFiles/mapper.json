@@ -9,12 +9,14 @@
 			"$.total": "$.[0].Data.length()"
 		},
 		"mapperObj": {
-			"$.entry[*].resource": "$.[0].Data[*].InterfaceData"
+			"$.entry[*].resource": "$.[0].Data"
 		},
-		"fieldsList": [
-			{"str(FieldId)":"str(2201)","str(Value)":"$.entry[*].resource.category"},
-			{"str(FieldId)":"str(2202)","str(Value)":"$.entry[*].resource.note[0].text"},
-			{"str(FieldId)":"str(2209)","str(Value)":"$.entry[*].resource.verificationStatus.coding[0].code"}
-		]
+		"sampleObj": {
+			"$.entry[*].resource": "$.[0].Data[0]"
+		},
+		"fieldsList": {
+			"$.InterfaceData[?(@.FieldId=='2201')].Value": "$.entry[*].resource.category",
+			"$.InterfaceData[?(@.FieldId=='2209')].Value": "$.entry[*].resource.verificationStatus.coding[0].code"
+		}
 	}
 }
