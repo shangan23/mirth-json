@@ -17,7 +17,9 @@ public class GenerateCusomList extends Utility {
 	@SuppressWarnings({ "unused", "rawtypes", "unchecked" })
 	public void BuildCustomList() throws FileNotFoundException {
 
-		String basePath = null, customReader = null, fhirReader = null, mapReader = null, sampleCustom = null, totalFhir = null, mapperCustom = null;
+		String basePath = null, customReader = null, fhirReader = null, 
+				mapReader = null, sampleCustom = null, totalFhir = null, 
+				mapperCustom = null,nonIterateCustom=null;
 		Object customJson = null, fhirJson = null, mapJson = null;
 
 		basePath = "src/main/java/JsonUtilities/JsonFiles/";
@@ -44,6 +46,10 @@ public class GenerateCusomList extends Utility {
 				LinkedHashMap<String, String> listMapper = (LinkedHashMap<String, String>) list.getValue();
 				mapperCustom = cleanString(listMapper.values().toString(), 1);
 				break;
+			case "nonIterateFieldObj":
+				LinkedHashMap<String, String> nonIterateMap = (LinkedHashMap<String, String>) list.getValue();
+				nonIterateCustom = cleanString(nonIterateMap.values().toString(), 1);
+				break;
 			case "sampleObj":
 				LinkedHashMap<String, String> listSample = (LinkedHashMap<String, String>) list.getValue();
 				sampleCustom = cleanString(listSample.values().toString(), 1);
@@ -57,12 +63,12 @@ public class GenerateCusomList extends Utility {
 		DocumentContext newCstm = JsonPath.parse(sampleObject);
 		Integer totalFhirCount = JsonPath.parse(fhirJson).read(totalFhir);
 		for (Integer f = 0; f < totalFhirCount; f++) {
-			LinkedHashMap<String, String> mapFields = JsonPath.parse(mapJson).read("$.list.fieldObj");
-			Set mapFieldSet = mapFields.entrySet();
-			Iterator mapFieldIterate = mapFieldSet.iterator();
+			LinkedHashMap<String, String> iterateFields = JsonPath.parse(mapJson).read("$.list.iterateFieldObj");
+			Set iterateFieldSet = iterateFields.entrySet();
+			Iterator iterateField = iterateFieldSet.iterator();
 			
-			while (mapFieldIterate.hasNext()) {
-				Map.Entry mapField = (Map.Entry) mapFieldIterate.next();
+			while (iterateField.hasNext()) {
+				Map.Entry mapField = (Map.Entry) iterateField.next();
 				newCstm = setJson(newCstm, fhirJson, JsonPath.parse(sampleJson).json(), mapField.getKey().toString(),
 						(mapField.getValue()).toString().replace("*", f.toString()));
 			}

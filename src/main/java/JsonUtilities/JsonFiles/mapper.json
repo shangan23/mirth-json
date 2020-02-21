@@ -16,12 +16,15 @@
 		"sampleObj": {
 			"$.entry[*].resource": "$.[0].Data[0]"
 		},
-		"fieldObj": {
+		"iterateFieldObj": {
 			"$.InterfaceData[?(@.FieldId=='2201')].Value": "$.entry[*].resource.category",
 			"$.InterfaceData[?(@.FieldId=='2202')].Value": "$.entry[*].resource.note[0].text",
 			"$.InterfaceData[?(@.FieldId=='2209')].Value": "$.entry[*].resource.verificationStatus.coding[0].code",
 			"$.InterfaceData[?(@.FieldId=='2208')].Value": "$.entry[*].resource.clinicalStatus.coding[0].code",
 			"$.InterfaceData[?(@.FieldId=='2207')].Value": "$.entry[*].resource.code.coding[0].code"
+		},
+		"nonIterateFieldObj": {
+			"$.entry[*].resource": "$.[0].CreatedForUsers[0]"
 		}
 	}
 }
