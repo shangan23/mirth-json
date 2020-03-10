@@ -1,5 +1,4 @@
-package JsonUtilities;
-
+package com.mirth.jsonpath;
 import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;

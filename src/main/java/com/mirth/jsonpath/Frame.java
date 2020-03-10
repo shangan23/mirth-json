@@ -1,36 +1,46 @@
-package JsonUtilities;
+package com.mirth.jsonpath;
 
-import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 
-import net.minidev.json.JSONArray;
+public class Frame extends Utility {
 
-public class GenerateCusomList extends Utility {
+	@SuppressWarnings("rawtypes")
+	public static String MakeJson(String src, String dest, String map) {
+
+		Object srcJson = null, destJson = null, mapJson = null;
+
+		srcJson = JsonPath.parse(src).json();
+		destJson = JsonPath.parse(dest).json();
+		mapJson = JsonPath.parse(map).json();
+		DocumentContext newJson = JsonPath.parse(destJson);
+
+		LinkedHashMap<String, String> mapObj = JsonPath.parse(mapJson).read("$.write");
+		Set writeSet = mapObj.entrySet();
+		Iterator writeIterate = writeSet.iterator();
+		while (writeIterate.hasNext()) {
+			Map.Entry write = (Map.Entry) writeIterate.next();
+			newJson = setJson(newJson, srcJson, destJson, write.getKey().toString(), write.getValue().toString());
+		}
+		return newJson.jsonString();
+	}
 	
 	@SuppressWarnings({ "unused", "rawtypes", "unchecked" })
-	public void BuildCustomList() throws FileNotFoundException {
+	public static String MakeJsonList(String src, String dest, String map) {
 
 		String basePath = null, customReader = null, fhirReader = null, 
-				mapReader = null, sampleCustom = null, totalFhir = null, 
+				mapReader = null, sample = null, totalFhir = null, 
 				mapperCustom = null,nonIterateCustom=null;
-		Object customJson = null, fhirJson = null, mapJson = null;
+		Object srcJson = null, destJson = null, mapJson = null;
 
-		basePath = "src/main/java/JsonUtilities/JsonFiles/";
-
-		customReader = readFile(basePath + "customList.json");
-		fhirReader = readFile(basePath + "fhirR4List.json");
-		mapReader = readFile(basePath + "mapper.json");
-
-		customJson = JsonPath.parse(customReader).json();
-		fhirJson = JsonPath.parse(fhirReader).json();
-		mapJson = JsonPath.parse(mapReader).json();
+		srcJson = JsonPath.parse(src).json();
+		destJson = JsonPath.parse(dest).json();
+		mapJson = JsonPath.parse(map).json();
 		LinkedHashMap<String, String> mapObj = JsonPath.parse(mapJson).read("$.list");
 		Set<?> listSet = mapObj.entrySet();
 		Iterator<?> listIterate = listSet.iterator();
@@ -52,16 +62,16 @@ public class GenerateCusomList extends Utility {
 				break;
 			case "sampleObj":
 				LinkedHashMap<String, String> listSample = (LinkedHashMap<String, String>) list.getValue();
-				sampleCustom = cleanString(listSample.values().toString(), 1);
+				sample = cleanString(listSample.values().toString(), 1);
 				break;
 			}
 		}
-		DocumentContext cstm = JsonPath.parse(customJson);
-		String sampleJson = cleanString(JsonPath.parse(customJson).read(mapperCustom), 1);
+		DocumentContext cstm = JsonPath.parse(srcJson);
+		String sampleJson = cleanString(JsonPath.parse(srcJson).read(mapperCustom), 1);
 		ReadContext rCtx = JsonPath.parse(sampleJson);
 		Object sampleObject = rCtx.json();
 		DocumentContext newCstm = JsonPath.parse(sampleObject);
-		Integer totalFhirCount = JsonPath.parse(fhirJson).read(totalFhir);
+		Integer totalFhirCount = JsonPath.parse(destJson).read(totalFhir);
 		for (Integer f = 0; f < totalFhirCount; f++) {
 			LinkedHashMap<String, String> iterateFields = JsonPath.parse(mapJson).read("$.list.iterateFieldObj");
 			Set iterateFieldSet = iterateFields.entrySet();
@@ -69,15 +79,14 @@ public class GenerateCusomList extends Utility {
 			
 			while (iterateField.hasNext()) {
 				Map.Entry mapField = (Map.Entry) iterateField.next();
-				newCstm = setJson(newCstm, fhirJson, JsonPath.parse(sampleJson).json(), mapField.getKey().toString(),
+				newCstm = setJson(newCstm, destJson, JsonPath.parse(sampleJson).json(), mapField.getKey().toString(),
 						(mapField.getValue()).toString().replace("*", f.toString()));
 			}
 			
 			ReadContext dataCtx = JsonPath.parse(newCstm.jsonString());
-			JsonPath.parse(customJson).add(mapperCustom,dataCtx.json());
+			JsonPath.parse(srcJson).add(mapperCustom,dataCtx.json());
 		}
-		JsonPath.parse(customJson).delete(sampleCustom);
-		System.out.println(customJson);
+		JsonPath.parse(srcJson).delete(sample);
+		return srcJson.toString();
 	}
-
 }

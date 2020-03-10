@@ -1,4 +1,4 @@
-package JsonUtilities;
+package com.mirth.jsonpath;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
