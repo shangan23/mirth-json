@@ -1,0 +1,45 @@
+{
+    "ViewName": "getPatientAllergyInfo",
+    "Action": "Save",
+    "Status": "",
+    "PatientId": "200000",
+    "IdentifierForUpdate": "",
+    "System": "Cerner",
+    "AccessToken": "eyJraWQiOiIyMDIwLTAyLTI3VDA0OjU0OjAyLjA5NC5lYyIsInR5cCI6IkpXVCIsImFsZyI6IkVTMjU2In0.eyJzdWIiOiJwb3J0YWwiLCJ1cm46Y29tOmNlcm5lcjphdXRob3JpemF0aW9uOmNsYWltcyI6eyJ2ZXIiOiIxLjAiLCJlbmNvdW50ZXIiOiI0NjQ1OTA2IiwidG50IjoiMGI4YTAxMTEtZThlNi00YzI2LWE5MWMtNTA2OWNiYzZiMWNhIiwiYXpzIjoibGF1bmNoIG9ubGluZV9hY2Nlc3MgdXNlclwvQWNjb3VudC5yZWFkIHVzZXJcL0FsbGVyZ3lJbnRvbGVyYW5jZS5yZWFkIHVzZXJcL0FwcG9pbnRtZW50LnJlYWQgdXNlclwvQmluYXJ5LnJlYWQgdXNlclwvQ29uZGl0aW9uLnJlYWQgdXNlclwvQ292ZXJhZ2UucmVhZCB1c2VyXC9EZXZpY2UucmVhZCB1c2VyXC9Eb2N1bWVudFJlZmVyZW5jZS5yZWFkIHVzZXJcL0VuY291bnRlci5yZWFkIHVzZXJcL0ltbXVuaXphdGlvbi5yZWFkIHVzZXJcL01lZGljYXRpb25SZXF1ZXN0LnJlYWQgdXNlclwvT3JnYW5pemF0aW9uLnJlYWQgdXNlclwvUGF0aWVudC5yZWFkIHVzZXJcL1ByYWN0aXRpb25lci5yZWFkIHVzZXJcL1Byb2NlZHVyZS5yZWFkIHVzZXJcL1JlbGF0ZWRQZXJzb24ucmVhZCB1c2VyXC9BbGxlcmd5SW50b2xlcmFuY2Uud3JpdGUgdXNlclwvQXBwb2ludG1lbnQud3JpdGUgdXNlclwvQmFzaWMud3JpdGUgdXNlclwvQ29uZGl0aW9uLndyaXRlIHVzZXJcL0NvdmVyYWdlLndyaXRlIHVzZXJcL0VuY291bnRlci53cml0ZSB1c2VyXC9Pcmdhbml6YXRpb24ud3JpdGUgdXNlclwvUGF0aWVudC53cml0ZSB1c2VyXC9QcmFjdGl0aW9uZXIud3JpdGUiLCJ1c2VyIjoiNDQ2NDAwNyIsInBhdGllbnQiOiI1OTI2MDA3In0sImF6cCI6IjY4MGYzYWFhLWE3NjktNDI4NC05Mzg4LTg2M2ZkNWJkOGRkOSIsImlzcyI6Imh0dHBzOlwvXC9hdXRob3JpemF0aW9uLnNhbmRib3hjZXJuZXIuY29tXC8iLCJleHAiOjE1ODI5MTI4MzAsImlhdCI6MTU4MjkxMjIzMCwianRpIjoiZmUzYzM5MzAtOGRhNy00NzBhLThkN2MtMzU5NTY4ZTA0YjUyIiwidXJuOmNlcm5lcjphdXRob3JpemF0aW9uOmNsYWltczp2ZXJzaW9uOjEiOnsidmVyIjoiMS4wIiwicHJvZmlsZXMiOnsibWlsbGVubml1bS12MSI6eyJwZXJzb25uZWwiOiI0NDY0MDA3IiwiZW5jb3VudGVyIjoiNDY0NTkwNiJ9LCJzbWFydC12MSI6eyJwYXRpZW50cyI6WyI1OTI2MDA3Il0sImF6cyI6ImxhdW5jaCBvbmxpbmVfYWNjZXNzIHVzZXJcL0FjY291bnQucmVhZCB1c2VyXC9BbGxlcmd5SW50b2xlcmFuY2UucmVhZCB1c2VyXC9BcHBvaW50bWVudC5yZWFkIHVzZXJcL0JpbmFyeS5yZWFkIHVzZXJcL0NvbmRpdGlvbi5yZWFkIHVzZXJcL0NvdmVyYWdlLnJlYWQgdXNlclwvRGV2aWNlLnJlYWQgdXNlclwvRG9jdW1lbnRSZWZlcmVuY2UucmVhZCB1c2VyXC9FbmNvdW50ZXIucmVhZCB1c2VyXC9JbW11bml6YXRpb24ucmVhZCB1c2VyXC9NZWRpY2F0aW9uUmVxdWVzdC5yZWFkIHVzZXJcL09yZ2FuaXphdGlvbi5yZWFkIHVzZXJcL1BhdGllbnQucmVhZCB1c2VyXC9QcmFjdGl0aW9uZXIucmVhZCB1c2VyXC9Qcm9jZWR1cmUucmVhZCB1c2VyXC9SZWxhdGVkUGVyc29uLnJlYWQgdXNlclwvQWxsZXJneUludG9sZXJhbmNlLndyaXRlIHVzZXJcL0FwcG9pbnRtZW50LndyaXRlIHVzZXJcL0Jhc2ljLndyaXRlIHVzZXJcL0NvbmRpdGlvbi53cml0ZSB1c2VyXC9Db3ZlcmFnZS53cml0ZSB1c2VyXC9FbmNvdW50ZXIud3JpdGUgdXNlclwvT3JnYW5pemF0aW9uLndyaXRlIHVzZXJcL1BhdGllbnQud3JpdGUgdXNlclwvUHJhY3RpdGlvbmVyLndyaXRlIn19LCJjbGllbnQiOnsibmFtZSI6IkNvcmV5LUNlcm5lci1DbGllbnQiLCJpZCI6IjY4MGYzYWFhLWE3NjktNDI4NC05Mzg4LTg2M2ZkNWJkOGRkOSJ9LCJ1c2VyIjp7InByaW5jaXBhbCI6InBvcnRhbCIsInBlcnNvbmEiOiJwcm92aWRlciIsImlkc3AiOiIwYjhhMDExMS1lOGU2LTRjMjYtYTkxYy01MDY5Y2JjNmIxY2EiLCJzZXNzaW9uSWQiOiI3MDFhMGY2NS03NzRmLTQxMTgtYTgyOS1jN2E4MGZlYTBiZDAiLCJwcmluY2lwYWxUeXBlIjoidXNlcm5hbWUiLCJwcmluY2lwYWxVcmkiOiJodHRwczpcL1wvbWlsbGVubmlhLnNhbmRib3hjZXJuZXIuY29tXC9pbnN0YW5jZVwvMGI4YTAxMTEtZThlNi00YzI2LWE5MWMtNTA2OWNiYzZiMWNhXC9wcmluY2lwYWxcLzAwMDAuMDAwMC4wMDQ0LjFEODciLCJpZHNwVXJpIjoiaHR0cHM6XC9cL21pbGxlbm5pYS5zYW5kYm94Y2VybmVyLmNvbVwvYWNjb3VudHNcL2ZoaXJwbGF5LnRlbXBfcmhvLmNlcm5lcmFzcC5jb21cLzBiOGEwMTExLWU4ZTYtNGMyNi1hOTFjLTUwNjljYmM2YjFjYVwvbG9naW4ifSwidGVuYW50IjoiMGI4YTAxMTEtZThlNi00YzI2LWE5MWMtNTA2OWNiYzZiMWNhIn19.jBRaWTJTVX6XDMwoiFMK2M6WnzWhrFdMzIEvP82L-ULABJblxSbl0ddB3cKqbFswDXe4Sv3CehuBrFMwmST9jQ",
+    "Id": 31359,
+    "Data": [
+        {
+            "FieldId": 2207,
+            "Value": "{code:'1003002',display:'Religious discrimination'}"
+        },
+        {
+            "FieldId": 2208,
+            "Value": "active"
+        },
+        {
+            "FieldId": 2209,
+            "Value": "confirmed"
+        },
+        {
+            "FieldId": 2202,
+            "Value": "test notes"
+        },
+        {
+            "FieldId": 2201,
+            "Value": "environment"
+        },
+        {
+            "FieldId": 2203,
+            "Value": "MI"
+        },
+        {
+            "FieldId": 2204,
+            "Value": "high"
+        },
+        {
+			"FieldId": 2206,
+            "Value": "{code:'271757001',display:'Papular eruption'}"
+        }
+    ],
+    "DataUpdated": []
+}

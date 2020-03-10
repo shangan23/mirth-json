@@ -12,12 +12,12 @@ import com.jayway.jsonpath.JsonPath;
 public class GenerateFhirCreate extends Utility {
 	
 	@SuppressWarnings("rawtypes")
-	public static void CreateFhir() throws FileNotFoundException {
+	public static void CreateFhirbyFile() throws FileNotFoundException {
 
-		String basePath = "src/main/java/JsonUtilities/JsonFiles/";;
+		String basePath = "src/main/java/JsonUtilities/JsonFiles/conditions/";;
 
-		String customReader = readFile(basePath + "custom.json");
-		String fhirReader = readFile(basePath + "fhirR4.json");
+		String customReader = readFile(basePath + "customCreate.json");
+		String fhirReader = readFile(basePath + "fhirCreate.json");
 		String mapReader = readFile(basePath + "mapper.json");
 
 		Object customJson = JsonPath.parse(customReader).json();
@@ -34,6 +34,25 @@ public class GenerateFhirCreate extends Utility {
 		}
 
 		System.out.println(fhir.jsonString());
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static String CreateFhir(String custom, String fhir, String mapper) throws FileNotFoundException {
+		
+	Object customJson = JsonPath.parse(custom).json();
+		Object fhirJson = JsonPath.parse(fhir).json();
+		Object mapJson = JsonPath.parse(mapper).json();
+		DocumentContext fhirCtx = JsonPath.parse(fhirJson);
+
+		LinkedHashMap<String, String> mapObj = JsonPath.parse(mapJson).read("$.write");
+		Set writeSet = mapObj.entrySet();
+		Iterator writeIterate = writeSet.iterator();
+		while (writeIterate.hasNext()) {
+			Map.Entry write = (Map.Entry) writeIterate.next();
+			fhirCtx = setJson(fhirCtx, customJson, fhirJson, write.getKey().toString(), write.getValue().toString());
+		}
+
+		return fhirCtx.jsonString();
 	}
 
 

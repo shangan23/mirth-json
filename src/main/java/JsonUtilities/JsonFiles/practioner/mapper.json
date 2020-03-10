@@ -1,0 +1,25 @@
+{
+	"write": {
+		"$.criticality": "$.Data[?(@.FieldId=='2204')].Value",
+		"$.category": "$.Data[?(@.FieldId=='2201')].Value",
+		"$.verificationStatus.coding[0].code": "$.Data[?(@.FieldId=='2209')].Value",
+		"$.clinicalStatus.coding[0].code": "$.Data[?(@.FieldId=='2208')].Value",
+		"$.code.coding[0].code": "$.Data[?(@.FieldId=='2207')].Value.StrToJson('code')",
+		"$.code.text": "$.Data[?(@.FieldId=='2207')].Value.StrToJson('display')",
+		"$.reaction[0].manifestation[0].coding[0].code": "$.Data[?(@.FieldId=='2206')].Value.StrToJson('code')",
+		"$.reaction[0].manifestation[0].text": "$.Data[?(@.FieldId=='2206')].Value.StrToJson('display')",
+		"$.note[0].text": "$.Data[?(@.FieldId=='2202')].Value"
+	},
+	"list": {
+		"length": {
+		},
+		"iterateObj": {
+		},
+		"sampleObj": {
+		},
+		"iterateFieldObj": {
+		},
+		"nonIterateFieldObj": {
+		}
+	}
+}

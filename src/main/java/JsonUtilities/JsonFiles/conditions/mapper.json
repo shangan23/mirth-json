@@ -1,0 +1,19 @@
+{
+	"write": {
+		"$.participant[0].status": "$.Data[?(@.FieldId=='30008')].Value",
+		"$.status": "$.Data[?(@.FieldId=='30000')].Value",
+		"$.slot[0].reference": "$.Data[?(@.FieldId=='30007')].Value"
+	},
+	"list": {
+		"length": {
+		},
+		"iterateObj": {
+		},
+		"sampleObj": {
+		},
+		"iterateFieldObj": {
+		},
+		"nonIterateFieldObj": {
+		}
+	}
+}

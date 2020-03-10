@@ -1,0 +1,15 @@
+{
+  "resourceType": "Appointment",
+  "slot": [{
+    "reference": "Slot/5038369-4048296-7725872-150"
+  }],
+  "participant": [
+    {
+      "actor": {
+        "reference": "Patient/7422007"
+      },
+      "status": "accepted"
+    }
+  ],
+  "status": "booked"
+}
