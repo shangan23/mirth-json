@@ -1,26 +1,10 @@
 package com.mirth.jsonpath;
 
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-
 public class ExampleImplementation {
 
 	public static void main(String[] args) {
-		//check();
-		String json = "{\n" + "  \"module\": \"user\",\n" + "  \"details\": {\n" + "    \"name\": \"John\",\n"
-				+ "    \"age\": 31,\n" + "    \"city\": \"New York\"\n" + "  }\n" + "}";
-		Core core = new Core();
-		String result = core.set(json,"$.details.name" , "Shankar");
-		result = core.delete(json,"$.details.name");
-		JSONArray array = new JSONArray();
-		 JSONObject obj = new JSONObject();
-		 obj.put("firstname", "Shankar");
-		 obj.put("middlename", "Ganesh");
-		 obj.put("lastname", "Jayaraman");
-		 array.add(obj);
-		 //result = core.add(json, "$.details.name",obj);
-		result = core.put(json, "$","nameText",obj);
-		System.out.println(result);
+		check();
+		
 	}
 
 	public static void check() {

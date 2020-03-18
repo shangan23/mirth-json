@@ -16,6 +16,7 @@ public class Utility {
 		Object valObj;
 		try {
 			boolean isFound = val.indexOf(".StrToJson(") !=-1? true: false;
+			boolean startWithSquare = val.indexOf("[") !=-1? true: false;
 			if(isFound) {
 				valObj = JsonPath.read(src, val.substring(0, val.indexOf(".StrToJson(")));
 				valObj = JsonPath.parse(cleanString(valObj,2)).json();
@@ -36,7 +37,10 @@ public class Utility {
 			valObj = JsonPath.read(src, val);
 			switch (typeOf(JsonPath.read(dest, key))) {
 			case "String":
-				ctx = ctx.set(key, cleanString(valObj, 2));
+				if(startWithSquare)
+					ctx = ctx.set(key, cleanString(valObj, 2));
+				else
+					ctx = ctx.set(key, valObj);
 				break;
 			default:
 				ctx = ctx.set(key, valObj);
@@ -75,7 +79,7 @@ public class Utility {
 	}
 
 	public static <T> String typeOf(T o) {
-		// System.out.println("Instance Type >> " + o.getClass().getSimpleName());
+		System.out.println("Instance Type >> " + o.getClass().getSimpleName());
 		return o.getClass().getSimpleName();
 	}
 }

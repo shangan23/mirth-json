@@ -5,11 +5,11 @@ import com.jayway.jsonpath.JsonPath;
 
 public class Core {
 
-	public static String get(String json, String path) {
+	public static String read(String json, String path) {
 		return JsonPath.parse(json).read(path);
 	}
 
-	public static String set(String json, String key, String value) {
+	public static String update(String json, String key, String value) {
 		DocumentContext ctx = JsonPath.parse(json);
 		ctx = ctx.set(key, value);
 		return ctx.jsonString();
@@ -21,9 +21,15 @@ public class Core {
 		return ctx.jsonString();
 	}
 
-	public static String put(String json, String path, String key, Object value) {
+	public static String insertObject(String json, String path, String key, Object value) {
 		DocumentContext ctx = JsonPath.parse(json);
 		ctx = ctx.put(path, key, JsonPath.parse(value).json());
+		return ctx.jsonString();
+	}
+	
+	public static String insert(String json, String path, String key, String value) {
+		DocumentContext ctx = JsonPath.parse(json);
+		ctx = ctx.put(path, key, value);
 		return ctx.jsonString();
 	}
 
