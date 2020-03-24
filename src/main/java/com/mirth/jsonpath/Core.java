@@ -6,7 +6,11 @@ import com.jayway.jsonpath.JsonPath;
 public class Core {
 
 	public static String read(String json, String path) {
-		return JsonPath.parse(json).read(path);
+		try {
+			return JsonPath.parse(json).read(path);
+		} catch (Exception e) {
+			return "";
+		}
 	}
 
 	public static String update(String json, String key, String value) {
@@ -26,7 +30,7 @@ public class Core {
 		ctx = ctx.put(path, key, JsonPath.parse(value).json());
 		return ctx.jsonString();
 	}
-	
+
 	public static String insert(String json, String path, String key, String value) {
 		DocumentContext ctx = JsonPath.parse(json);
 		ctx = ctx.put(path, key, value);
