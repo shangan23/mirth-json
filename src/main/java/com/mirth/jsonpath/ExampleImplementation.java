@@ -3,7 +3,51 @@ package com.mirth.jsonpath;
 public class ExampleImplementation {
 
 	public static void main(String[] args) {
-		check();
+		//check();
+		Core core = new Core();
+		String json = "{\n" + 
+				"  \"ViewName\" : \"getPatientProblems\",\n" + 
+				"  \"Action\" : \"Save\",\n" + 
+				"  \"Status\" : \"\",\n" + 
+				"  \"PatientId\" : \"1DFB5228-19E4-4513-B77B-E3915C9C670E\",\n" + 
+				"  \"IdentifierForUpdate\" : \"\",\n" + 
+				"  \"System\" : \"Cerner\",\n" + 
+				"  \"AccessToken\" : \"eyJraWQiOiIyMDIwLTAzLTEwVDA0OjU0OjAzLjQ5Ny5lYyIsInR5cCI6IkpXVCIsImFsZyI6IkVTMjU2In0.eyJzdWIiOiJwb3J0YWwiLCJ1cm46Y29tOmNlcm5lcjphdXRob3JpemF0aW9uOmNsYWltcyI6eyJ2ZXIiOiIxLjAiLCJlbmNvdW50ZXIiOiI0MDI3OTI0IiwidG50IjoiMGI4YTAxMTEtZThlNi00YzI2LWE5MWMtNTA2OWNiYzZiMWNhIiwiYXpzIjoibGF1bmNoIG9ubGluZV9hY2Nlc3MgdXNlclwvQWNjb3VudC5yZWFkIHVzZXJcL0FsbGVyZ3lJbnRvbGVyYW5jZS5yZWFkIHVzZXJcL0FwcG9pbnRtZW50LnJlYWQgdXNlclwvQmluYXJ5LnJlYWQgdXNlclwvQ29uZGl0aW9uLnJlYWQgdXNlclwvQ292ZXJhZ2UucmVhZCB1c2VyXC9EZXZpY2UucmVhZCB1c2VyXC9Eb2N1bWVudFJlZmVyZW5jZS5yZWFkIHVzZXJcL0VuY291bnRlci5yZWFkIHVzZXJcL0ltbXVuaXphdGlvbi5yZWFkIHVzZXJcL01lZGljYXRpb25SZXF1ZXN0LnJlYWQgdXNlclwvT3JnYW5pemF0aW9uLnJlYWQgdXNlclwvUGF0aWVudC5yZWFkIHVzZXJcL1ByYWN0aXRpb25lci5yZWFkIHVzZXJcL1Byb2NlZHVyZS5yZWFkIHVzZXJcL1JlbGF0ZWRQZXJzb24ucmVhZCB1c2VyXC9BbGxlcmd5SW50b2xlcmFuY2Uud3JpdGUgdXNlclwvQXBwb2ludG1lbnQud3JpdGUgdXNlclwvQmFzaWMud3JpdGUgdXNlclwvQ29uZGl0aW9uLndyaXRlIHVzZXJcL0NvdmVyYWdlLndyaXRlIHVzZXJcL0VuY291bnRlci53cml0ZSB1c2VyXC9Pcmdhbml6YXRpb24ud3JpdGUgdXNlclwvUGF0aWVudC53cml0ZSB1c2VyXC9QcmFjdGl0aW9uZXIud3JpdGUiLCJ1c2VyIjoiNDQ2NDAwNyIsInBhdGllbnQiOiI0MzQyMDExIn0sImF6cCI6IjY4MGYzYWFhLWE3NjktNDI4NC05Mzg4LTg2M2ZkNWJkOGRkOSIsImlzcyI6Imh0dHBzOlwvXC9hdXRob3JpemF0aW9uLnNhbmRib3hjZXJuZXIuY29tXC8iLCJleHAiOjE1ODM5Mzg2NDgsImlhdCI6MTU4MzkzODA0OCwianRpIjoiNTk2MjU1ZmUtYWY3OS00ZmJiLWEyNzAtMmFjNmM0NzJlYjRlIiwidXJuOmNlcm5lcjphdXRob3JpemF0aW9uOmNsYWltczp2ZXJzaW9uOjEiOnsidmVyIjoiMS4wIiwicHJvZmlsZXMiOnsibWlsbGVubml1bS12MSI6eyJwZXJzb25uZWwiOiI0NDY0MDA3IiwiZW5jb3VudGVyIjoiNDAyNzkyNCJ9LCJzbWFydC12MSI6eyJwYXRpZW50cyI6WyI0MzQyMDExIl0sImF6cyI6ImxhdW5jaCBvbmxpbmVfYWNjZXNzIHVzZXJcL0FjY291bnQucmVhZCB1c2VyXC9BbGxlcmd5SW50b2xlcmFuY2UucmVhZCB1c2VyXC9BcHBvaW50bWVudC5yZWFkIHVzZXJcL0JpbmFyeS5yZWFkIHVzZXJcL0NvbmRpdGlvbi5yZWFkIHVzZXJcL0NvdmVyYWdlLnJlYWQgdXNlclwvRGV2aWNlLnJlYWQgdXNlclwvRG9jdW1lbnRSZWZlcmVuY2UucmVhZCB1c2VyXC9FbmNvdW50ZXIucmVhZCB1c2VyXC9JbW11bml6YXRpb24ucmVhZCB1c2VyXC9NZWRpY2F0aW9uUmVxdWVzdC5yZWFkIHVzZXJcL09yZ2FuaXphdGlvbi5yZWFkIHVzZXJcL1BhdGllbnQucmVhZCB1c2VyXC9QcmFjdGl0aW9uZXIucmVhZCB1c2VyXC9Qcm9jZWR1cmUucmVhZCB1c2VyXC9SZWxhdGVkUGVyc29uLnJlYWQgdXNlclwvQWxsZXJneUludG9sZXJhbmNlLndyaXRlIHVzZXJcL0FwcG9pbnRtZW50LndyaXRlIHVzZXJcL0Jhc2ljLndyaXRlIHVzZXJcL0NvbmRpdGlvbi53cml0ZSB1c2VyXC9Db3ZlcmFnZS53cml0ZSB1c2VyXC9FbmNvdW50ZXIud3JpdGUgdXNlclwvT3JnYW5pemF0aW9uLndyaXRlIHVzZXJcL1BhdGllbnQud3JpdGUgdXNlclwvUHJhY3RpdGlvbmVyLndyaXRlIn19LCJjbGllbnQiOnsibmFtZSI6IkNvcmV5LUNlcm5lci1DbGllbnQiLCJpZCI6IjY4MGYzYWFhLWE3NjktNDI4NC05Mzg4LTg2M2ZkNWJkOGRkOSJ9LCJ1c2VyIjp7InByaW5jaXBhbCI6InBvcnRhbCIsInBlcnNvbmEiOiJwcm92aWRlciIsImlkc3AiOiIwYjhhMDExMS1lOGU2LTRjMjYtYTkxYy01MDY5Y2JjNmIxY2EiLCJzZXNzaW9uSWQiOiJkZDQ2MTc5My0xODJhLTRlNjctOGEwNC0xNDA4MmNkYjU5OTEiLCJwcmluY2lwYWxUeXBlIjoidXNlcm5hbWUiLCJwcmluY2lwYWxVcmkiOiJodHRwczpcL1wvbWlsbGVubmlhLnNhbmRib3hjZXJuZXIuY29tXC9pbnN0YW5jZVwvMGI4YTAxMTEtZThlNi00YzI2LWE5MWMtNTA2OWNiYzZiMWNhXC9wcmluY2lwYWxcLzAwMDAuMDAwMC4wMDQ0LjFEODciLCJpZHNwVXJpIjoiaHR0cHM6XC9cL21pbGxlbm5pYS5zYW5kYm94Y2VybmVyLmNvbVwvYWNjb3VudHNcL2ZoaXJwbGF5LnRlbXBfcmhvLmNlcm5lcmFzcC5jb21cLzBiOGEwMTExLWU4ZTYtNGMyNi1hOTFjLTUwNjljYmM2YjFjYVwvbG9naW4ifSwidGVuYW50IjoiMGI4YTAxMTEtZThlNi00YzI2LWE5MWMtNTA2OWNiYzZiMWNhIn19._k6fCnLyFFs3sZBdwHf4gbllBS2gN9Ht1V-oIA3Tga0m7OE-tragY8M6maMZseIpMmuqgXn9wUGibr_LZafiig\",\n" + 
+				"  \"Id\" : 31797,\n" + 
+				"  \"Data\" : [\n" + 
+				"    {\n" + 
+				"      \"FieldId\" : 2264,\n" + 
+				"      \"Value\" : \"{code:'24484000',display:'Severe'}\"\n" + 
+				"    },\n" + 
+				"    {\n" + 
+				"      \"FieldId\" : 2263,\n" + 
+				"      \"Value\" : \"problem-list-item\"\n" + 
+				"    },\n" + 
+				"    {\n" + 
+				"      \"FieldId\" : 2261,\n" + 
+				"      \"Value\" : \"resolved\"\n" + 
+				"    },\n" + 
+				"    {\n" + 
+				"      \"FieldId\" : 2262,\n" + 
+				"      \"Value\" : \"confirmed\"\n" + 
+				"    },\n" + 
+				"    {\n" + 
+				"      \"FieldId\" : 2260,\n" + 
+				"      \"Value\" : \"2020-03-10\"\n" + 
+				"    },\n" + 
+				"    {\n" + 
+				"      \"FieldId\" : 2267,\n" + 
+				"      \"Value\" : \"Test\"\n" + 
+				"    },\n" + 
+				"    {\n" + 
+				"      \"FieldId\" : 2265,\n" + 
+				"      \"Value\" : \"{code:'1003002',display:'Religious discrimination'}\"\n" + 
+				"    }\n" + 
+				"  ],\n" + 
+				"  \"DataUpdated\" : [ ]\n" + 
+				"}";
+		System.out.println(core.read(json, "$.Data[?(@.FieldId=='2265')].Value.StrToJson('code')"));
+		System.out.println(core.read(json, "$.Data[?(@.FieldId=='2260')].Value"));
 		
 	}
 
